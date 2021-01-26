@@ -40,3 +40,10 @@
     margin: 40px auto;
     padding: 20px;
 }
+
+.blog-preview h2 {
+    font-size: 20;
+    color: #f1356d;
+    margin-bottom: 8px;
+    margin-top: 16px;
+}
