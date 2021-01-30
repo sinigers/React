@@ -47,3 +47,6 @@
     margin-bottom: 8px;
     margin-top: 16px;
 }
+.blog-preview a{
+    text-decoration: none;
+}
