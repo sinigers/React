@@ -1,6 +1,6 @@
 
 import BlogList from "./blogList";
-import useFetch from "./usefetch";
+import useFetch from "./useFetch";
 
 const Home = () => {
   const { data: blogs, isPending, error } = useFetch(
