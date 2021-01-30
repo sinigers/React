@@ -6,7 +6,8 @@ const useFetch = (url) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(url)  // primer url - "http://localhost:8000/blogs"
+    const abortCont = new AbortController();
+    fetch(url, { signal: abortCont.signal })
       .then((res) => {
         if (!res.ok) {
           throw Error("could not fetch the data for that resource"); //izpisva, kogato data ot servera ne suvpada sus zaiavkata
@@ -20,10 +21,15 @@ const useFetch = (url) => {
         setError(null); // ako zaiavkata e OK err e Null
       })
       .catch((err) => {
-        setIsPending(false); // kogato ima err state na IsPending e false - ne se pokazva "loading"
-        setError(err.massage);
+        if (err.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          setIsPending(false); // kogato ima err state na IsPending e false - ne se pokazva "loading"
+          setError(err.massage);
+        }
       });
+    return () => abortCont.abort();
   }, [url]); // pri vsiaka promqna na url shte proveriava i vrushta data, isPending ili error
-  return{data, isPending, error};
+  return { data, isPending, error };
 };
 export default useFetch;
